@@ -41,7 +41,8 @@ Run the script `generate_video.py` to generate a video and store in the required
 - [x] Install argsparse
 - [x] Install opencv on mac
 - [ ] Install tensorflow on mac
-- [ ] 
+- [ ] Git logging
+- [ ] OOPS implementation
 - [ ] Other projects
     - [ ] NLP
     - [ ] Web scrapping
