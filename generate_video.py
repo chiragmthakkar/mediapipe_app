@@ -1,6 +1,7 @@
 import cv2
 import time
 import argparse
+import logging
 
 def record_video(output_path:str, fps:int):
     '''
@@ -15,6 +16,7 @@ def record_video(output_path:str, fps:int):
 
     # Check if camera opened successfully
     if (cap.isOpened() == False):
+        logging.warning('Unable to read camera feed')
         print("Unable to read camera feed")
 
     # Default resolutions of the frame are obtained.The default resolutions are system dependent.
@@ -31,14 +33,18 @@ def record_video(output_path:str, fps:int):
     # # used to record the time at which we processed current frame
     # new_frame_time = 0
 
+    frame_no = -1
+
     while (True):
         ret, frame = cap.read()
 
         if ret == True:
+            frame_no += 1
 
             # Our operations on the frame come here
             gray = frame
 
+            logging.info(f'Writing frame {frame_no}')
             # Write the frame into the file 'output.avi'
             out.write(frame)
 
@@ -71,6 +77,7 @@ def record_video(output_path:str, fps:int):
 
             # Press Q on keyboard to stop recording
             if cv2.waitKey(1) & 0xFF == ord('q'):
+                logging.debug('Recording stopped')
                 break
 
         # Break the loop
@@ -90,7 +97,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     # Add arguments
     parser.add_argument('-o', '--output_path', type=str, required=True, help='output file path')
-    parser.add_argument('-f', '--fps', type=int, default=25, required=True, help='fps')
+    parser.add_argument('-f', '--fps', type=int, default=25, help='fps')
+    parser.add_argument('-l', '--log_file', type=str, default='logger.log', help='log file path')
+
     # Parse the argument
     args = parser.parse_args()
-    record_video(args.output_path, args.fps)
+    logging.basicConfig(filename=args.log_file,
+                        level=logging.DEBUG,
+                        format='%(asctime)s | %(name)s | %(levelname)s | %(message)s')
+    record_video(args.output_path)
