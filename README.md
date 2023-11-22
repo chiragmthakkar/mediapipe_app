@@ -56,5 +56,5 @@ Run the script `generate_video.py` to generate a video and store in the required
 
 Project Link: [https://github.com/chiragmthakkar/mediapipe_app](https://github.com/chiragmthakkar/mediapipe_app)
 
-Read-me reference [ref](https://github.com/othneildrew/Best-README-Template)
+
 <p align="right">(<a href="#top">back to top</a>)</p>
